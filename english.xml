@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>lcdm:DeleteEmails</id>
+	<version>1.1</version>
+	
+	<file name="$languagedir/Modifications.english-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+		<add><![CDATA[
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message)
+
+$txt['delete_email']='Url of rules';
+$txt['delete_email_description']='If you omit the previous url(where you should explain that the emails are not allowed in topic or message), it only will show this error "Emails are not allowed"';
+$txt['delete_email_message']='Emails are not allowed';
+$txt['delete_email_message_read']='Emails are not allowed, read rules';
+
+//End Mod Delete Email (Delete emails of  the content  of topic or message)
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.english.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message)
+
+$txt['delete_email']='Url of rules';
+$txt['delete_email_description']='If you omit the previous url(where you should explain that the emails are not allowed in topic or message), it only will show this error "Emails are not allowed"';
+$txt['delete_email_message']='Emails are not allowed';
+$txt['delete_email_message_read']='Emails are not allowed, read rules';
+
+//End Mod Delete Email (Delete emails of  the content  of topic or message)
+]]></add>
+		</operation>
+	</file>	
+</modification>

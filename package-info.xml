@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<name>Delete emails</name>
+	<id>lcdm:DeleteEmails</id>
+	<type>modification</type>
+	<version>1.1</version>
+		
+	<install for="2.0 RC3, 2.0 RC4, 2.0 RC5, 2.0, 2.0.1, 2.0.2, 2.0.3, 2.0.4">
+		<readme type="file" parsebbc="true">readme.txt</readme>
+		<modification type="file">install.xml</modification>
+		<modification type="file">english.xml</modification>
+		<modification type="file">spanish.xml</modification>
+    <redirect url="$scripturl?action=admin;area=theme;sa=settings;th=1" timeout="2000"></redirect>
+	</install>
+	
+	<uninstall for="2.0 RC3, 2.0 RC4, 2.0 RC5, 2.0, 2.0.1, 2.0.2, 2.0.3, 2.0.4">
+		<modification type="file" reverse="true">install.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">spanish.xml</modification>	
+	</uninstall>
+	
+</package-info>

@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>lcdm:DeleteEmails</id>
+	<version>1.1</version>
+	
+
+	<file name="$sourcedir/Subs.php">
+		<operation>
+			<search position="replace"><![CDATA[
+			array(
+				'tag' => 'email',
+				'type' => 'unparsed_content',
+				'content' => '<a href="mailto:$1" class="bbc_email">$1</a>',
+				// !!! Should this respect guest_hideContacts?
+				'validate' => create_function('&$tag, &$data, $disabled', '$data = strtr($data, array(\'<br />\' => \'\'));'),
+			),
+			array(
+				'tag' => 'email',
+				'type' => 'unparsed_equals',
+				'before' => '<a href="mailto:$1" class="bbc_email">',
+				'after' => '</a>',
+				// !!! Should this respect guest_hideContacts?
+				'disallow_children' => array('email', 'ftp', 'url', 'iurl'),
+				'disabled_after' => ' ($1)',
+			),]]></search>
+			
+			<add><![CDATA[
+// Begin  Mod Delete email (Delete emails of the content of topic or message)
+			array(
+				'tag' => 'email',
+				'type' => 'unparsed_content',
+				'content' => empty($settings['delete_email']) ? '<span class="error">'.$txt['delete_email_message'].'</span>' : '<a target="_blank" href="'.$settings['delete_email'].'">'.$txt['delete_email_message_read'].'</a>',
+				// !!! Should this respect guest_hideContacts?
+				'validate' => create_function('&$tag, &$data, $disabled', '$data = strtr($data, array(\'<br />\' => \'\'));'),
+			),
+			array(
+				'tag' => 'email',
+				'type' => 'unparsed_content',
+				'content' => empty($settings['delete_email']) ? '<span class="error">'.$txt['delete_email_message'].'</span>' : '<a target="_blank" href="'.$settings['delete_email'].'">'.$txt['delete_email_message_read'].'</a>',
+				// !!! Should this respect guest_hideContacts?
+				'disallow_children' => array('email', 'ftp', 'url', 'iurl'),
+				'disabled_after' => ' ($1)',
+			),
+//End Mod Delete Email]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[global $txt, $scripturl, $context, $modSettings, $user_info, $smcFunc;]]></search>
+			<add><![CDATA[global $txt, $scripturl, $context, $modSettings, $user_info, $smcFunc, $settings;]]></add>
+		</operation>
+	</file>
+	
+	
+	<file name="$themedir/Settings.template.php">
+		<operation>
+			<search position="before"><![CDATA[
+		array(
+			'id' => 'show_bbc',
+			'label' => $txt['admin_bbc'],
+		),
+		array(
+			'id' => 'additional_options_collapsable',
+			'label' => $txt['additional_options_collapsable'],
+		),]]></search>
+			
+<add><![CDATA[
+// Begin  Mod Delete email (Delete emails of  the content  of topic or message) 
+	'',
+	array(
+		'id' => 'delete_email',
+		'label' => $txt['delete_email'],
+		'description' => $txt['delete_email_description'],
+		'type'=>'text',
+		),		
+//End Mod Delete Email (Delete emails of  the content  of topic or message) 
+]]></add>
+		</operation>
+	</file>
+<file name="$sourcedir/Post.php">
+<operation>
+			<search position="before"><![CDATA[			$form_message = preg_replace('~<br ?/?' . '>~i', "\n", $form_message);]]></search>
+			<add><![CDATA[
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message) 
+			//Remove Email from quotes, emails with bbcode
+			$form_message = preg_replace("~\[email\](.+?)\[\/email\]~i", $txt['delete_email_message'], $form_message);
+			$form_message = preg_replace(array('~\n?\[email.*?\].+?\[/email\]\n?~is', '~^\n~', '~\[/hide\]~'), $txt['delete_email_message'], $form_message);
+			//Remove Email from quotes, emails without bbcode
+			$form_message = preg_replace('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~', $txt['delete_email_message'], $form_message);
+			$form_message = preg_replace(array('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~'), $txt['delete_email_message'], $form_message);
+//End Mod Delete Email (Delete emails of  the content  of topic or message) 
+]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[		// Remove any nested quotes.
+		if (!empty($modSettings['removeNestedQuotes']))]]></search>
+			<add><![CDATA[
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message) 
+		//Remove email form quoted fast, emails with bbcode
+		$row['body'] = preg_replace("/\[email\](.+?)\[\/email\]/i", $txt['delete_email_message'], $row['body']);
+		$row['body'] = preg_replace(array('~\n?\[email.*?\].+?\[/email\]\n?~is', '~^\n~', '~\[/email\]~'), $txt['delete_email_message'], $row['body']);
+		//Remove Email from quotes fast, emails without bbcode
+		$row['body'] = preg_replace('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~', $txt['delete_email_message'], $row['body']);
+		$row['body'] = preg_replace(array('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~'), $txt['delete_email_message'], $row['body']);
+//End Mod Delete Email (Delete emails of  the content  of topic or message) 	
+
+]]></add>
+		</operation>
+</file>
+	<file name="$sourcedir/Search.php">
+		<operation>
+			<search position="after"><![CDATA[	// Do the censor thang...
+	censorText($message['body']);]]></search>
+			<add><![CDATA[
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message) 
+	//remove email from search, with bbcode
+	$message['body'] = preg_replace("/\[email\](.+?)\[\/email\]/i",empty($settings['delete_email']) ? '<span class="error">'.$txt['delete_email_message'].'</span>' : '<a href="'.$settings['delete_email'].'">'.$txt['delete_email_message_read'].'</a>', $message['body']);
+	$message['body'] = preg_replace(array('~\n?\[email.*?\].+?\[/email\]\n?~is', '~^\n~', '~\[/email\]~'),empty($settings['delete_email']) ? '<span class="error">'.$txt['delete_email_message'].'</span>' : '<a href="'.$settings['delete_email'].'">'.$txt['delete_email_message_read'].'</a>', $message['body']);
+	//Remove Email from search, emails without bbcode
+	$message['body'] = preg_replace('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~', $txt['delete_email_message'], $message['body']);
+	$message['body'] = preg_replace(array('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~'), $txt['delete_email_message'], $message['body']);
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message) 
+		
+]]></add>
+		</operation>
+	</file>
+	
+</modification>

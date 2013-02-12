@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<id>lcdm:DeleteEmails</id>
+	<version>1.1</version>
+		<file name="$languagedir/Modifications.spanish_latin.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message) 
+
+$txt['delete_email']='Url de las reglas';
+$txt['delete_email_description']='En el caso de que se omita la anterior url de las reglas, donde deberías explicar que los emails no están permitidos en mensajes o posts, no se mostrará nada sólo este error: "Los emails no están permitidos"';
+$txt['delete_email_message']='Los emails no están permitidos';
+$txt['delete_email_message_read']='Los emails no están permitidos, lea las reglas';
+
+//End Mod Delete Email (Delete emails of  the content  of topic or message) 
+]]></add>
+		</operation>
+	</file>	
+
+<file name="$languagedir/Modifications.spanish_latin-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message) 
+
+$txt['delete_email']='Url de las reglas';
+$txt['delete_email_description']='En el caso de que se omita la anterior url de las reglas, donde deberÃ¡s explicar que los emails no estÃ¡n permitidos en mensajes o posts, no se mostrarÃ¡ nada sÃ³lo este error: "Los emails no estÃ¡n permitidos"';
+$txt['delete_email_message']='Los emails no estÃ¡n permitidos';
+$txt['delete_email_message_read']='Los emails no estÃ¡n permitidos, lea las reglas';
+
+//End Mod Delete Email (Delete emails of  the content  of topic or message) 
+]]></add>
+		</operation>
+	</file>	
+
+<file name="$languagedir/Modifications.spanish_es.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message) 
+
+$txt['delete_email']='Url de las reglas';
+$txt['delete_email_description']='En el caso de que se omita la anterior url de las reglas, donde deberías explicar que los emails no están permitidos, no se mostrará nada sólo este error: "Los emails no estn permitidos"';
+$txt['delete_email_message']='Los emails no están permitidos';
+$txt['delete_email_message_read']='Los emails no están permitidos, lea las reglas';
+
+//End Mod Delete Email (Delete emails of  the content  of topic or message) 
+]]></add>
+		</operation>
+	</file>		
+
+
+<file name="$languagedir/Modifications.spanish_es-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+//Begin  Mod Delete email (Delete emails of  the content  of topic or message) 
+
+$txt['delete_email']='Url de las reglas';
+$txt['delete_email_description']='En el caso de que se omita la anterior url de las reglas, donde deberÃ­as explicar que los emails no estÃ¡n permitidos, no se mostrarÃ¡ nada sÃ³lo este error: "Los emails no estÃ¡n permitidos"';
+$txt['delete_email_message']='Los emails no estÃ¡n permitidos';
+$txt['delete_email_message_read']='Los emails no estÃ¡n permitidos, lea las reglas';
+
+//End Mod Delete Email (Delete emails of  the content  of topic or message) 
+
+]]></add>
+		</operation>
+	</file>		
+	
+	
+</modification>
