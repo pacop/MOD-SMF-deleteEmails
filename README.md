@@ -21,3 +21,7 @@ This mod delete(replace) the emails of topic or message. You can choose to show 
 - Spanish_latin-utf8
 - Spanish_es-utf8
 - Spanish_es   
+
+#### Dowload
+[Customize SMF - Delete Emails](
+http://custom.simplemachines.org/mods/index.php?mod=3129)
