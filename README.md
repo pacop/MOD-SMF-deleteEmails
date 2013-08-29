@@ -12,6 +12,7 @@ This mod delete(replace) the emails of topic or message. You can choose to show 
 - SMF 2.0.2
 - SMF 2.0.3
 - SMF 2.0.4
+- SMF 2.0.5
 
 #### Language Support
 - English
